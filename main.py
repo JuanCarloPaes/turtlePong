@@ -87,6 +87,14 @@ def paddle_2_down():
     paddle_2.sety(y)
 
 
+def resetPlay():
+    hud.clear()
+    hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
+    os.system("afplay 258020__kodack__arcade-bleep-sound.wav&")
+    ball.goto(0, 0)
+    ball.dx *= -1
+
+
 # keyboard
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
@@ -116,20 +124,12 @@ while True:
     # collision with left wall
     if ball.xcor() < -390:
         score_2 += 1
-        hud.clear()
-        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
-        os.system("afplay 258020__kodack__arcade-bleep-sound.wav&")
-        ball.goto(0, 0)
-        ball.dx *= -1
+        resetPlay()
 
     # collision with right wall
     if ball.xcor() > 390:
         score_1 += 1
-        hud.clear()
-        hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P", 24, "normal"))
-        os.system("afplay 258020__kodack__arcade-bleep-sound.wav&")
-        ball.goto(0, 0)
-        ball.dx *= -1
+        resetPlay()
 
     # collision with the paddle 1
     if (ball.xcor() < -330) and (ball.xcor() > -340) and (paddle_1.ycor() + 50 > ball.ycor() > paddle_1.ycor() - 50):
